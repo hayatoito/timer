@@ -1,30 +1,25 @@
-# Makefile for local test
-
-OUTPUT=$(HOME)/src/build/timer
-
-BIN=$(HOME)/src/yarn/node_modules/.bin
-
 build:
-	mkdir -p $(OUTPUT)
-	$(BIN)/eslint pomodoro-timer.babel.js && \
-	$(BIN)/babel --presets babel-preset-es2015 --compact false pomodoro-timer.babel.js -o $(OUTPUT)/pomodoro-timer.js
-	rsync -a pomodoro-timer.html index.js assets bower_components $(OUTPUT)/
-	cp index.html $(OUTPUT)/index.tmp.html
-	$(BIN)/vulcanize $(OUTPUT)/index.tmp.html --inline-script --inline-css --strip-comments | $(BIN)/crisper -h $(OUTPUT)/index.html -j $(OUTPUT)/timer.js
-	rm -rf $(OUTPUT)/bower_components
+	polymer build
 
 update:
-	bower install
-
-watch:
-	fswatch -o -e '#.*' *.html *.babel.js | xargs -n 1 -I {} make build
+	yarn install
 
 serve:
-	browser-sync start --port 8000 --server --files='*.html,*.js'
+	polymer serve
+
+lint:
+	eslint src/my-timer/my-timer.js
+	eslint src/index.js
+	polymer lint
+	ls -l ./build/es6-unbundled
+
+serve-production-build:
+	my-http-server --port 8080 &
+	open 'http://localhost:8080/build/es6-unbundled/'
 
 publish: build
 	git branch -D master || true
-	python3 ./ghp-import/ghp_import.py -b master $(OUTPUT)
+	python3 ./ghp-import/ghp_import.py -b master build/es6-unbundled
 	git push --force origin master
 
 # https://hayatoito.github.io/timer
