@@ -1,18 +1,19 @@
 {
   "npm": true,
-  "sources": [
-    "assets/**/*"
-  ],
+  "sources": ["assets/**/*"],
   "builds": [
     {
       "preset": "es6-unbundled",
       "addServiceWorker": false,
       "addPushManifest": false
+    },
+    {
+      "preset": "es6-bundled",
+      "addServiceWorker": false,
+      "addPushManifest": false
     }
   ],
   "lint": {
-    "rules": [
-      "polymer-3"
-    ]
+    "rules": ["polymer-3"]
   }
 }

@@ -8,6 +8,14 @@
     <link id="favicon" href="./assets/chocolate.png" rel="shortcut icon">
     <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script type="module" src="./src/my-timer/my-timer.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-195971-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-195971-6');
+    </script>
     <style>
       html, body {
         margin: 0;
@@ -26,8 +34,8 @@
   <body>
     <my-timer></my-timer>
     <p id="timer-footer"><a href="https://hayato.io/2014/timer/">Help</a> | <a href="https://github.com/hayatoito/hayatoito.github.io/issues?q=is%3Aissue+label%3Atimer">File an issue</a></p>
-    <script src="index.js"></script>
-    <script>
+    <script type="module">
+      import { setTimerAttributesFromURL } from './index.js';
       setTimerAttributesFromURL(document.querySelector('my-timer'));
     </script>
   </body>

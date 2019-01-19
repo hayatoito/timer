@@ -2,14 +2,14 @@ build:
 	polymer build
 
 update:
-	yarn install
+	npm install
 
 serve:
 	polymer serve
 
 lint:
 	eslint src/my-timer/my-timer.js
-	eslint src/index.js
+	eslint ./index.js
 	polymer lint
 	ls -l ./build/es6-unbundled
 
